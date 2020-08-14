@@ -13,8 +13,9 @@
 
 
 
-Auth::routes();
+
 
 Route::get('/', 'HomeController@index')->name('home');
-
-Route::get('/register', 'RegisterController@register')->name('home');
+Auth::routes();
+Route::get('/admin', 'Admin\HomeController@index')->name('admin');
+Route::get('/register', 'Auth\RegisterController@register')->name('register');
