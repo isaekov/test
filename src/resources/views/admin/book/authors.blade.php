@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <h4 class="panel-heading">"<strong>{{$author->name}} {{ $author->last_name }}</strong>"</h4>
+                <h4 class="panel-heading">"<strong>{{$book->name}}</strong>"</h4>
                 <br>
                 <br>
                 <div class="panel-body">
@@ -14,16 +14,15 @@
                         <thead>
                         <tr>
                             <th>Идентификатор</th>
-                            <th>Название</th>
-                            <th>Описание</th>
+                            <th>ФИО</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($author->books as $book)
+                        @foreach($book->authors as $author)
                             <tr>
-                                <td>{{ $book["id"] }}</td>
-                                <td>{{ $book["name"] }}</td>
-                                <td>{{ $book["description"] }}</td>
+                                <td>{{ $author["id"] }}</td>
+                                <td>{{ $author["name"] }} {{ $author["last_name"] }}</td>
+
                             </tr>
                         @endforeach
                         </tbody>

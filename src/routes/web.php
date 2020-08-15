@@ -32,7 +32,10 @@ Route::group([
     Route::get("/", "HomeController@index")->name("home");
     Route::resource("book", "BookController");
     Route::resource("author", "AuthorController");
-//    Route::get('/{id}/books',"AuthorController@getAuthorBooks");
+    Route::get('/author/{author_id}/books',"AuthorController@getAuthorBooks")->name("books");
+    Route::get('/book/{book_id}/authors',"BookController@getBooksAuthor")->name("books");
+    Route::delete('/author/{author}/{book}/remove',"AuthorController@removeAuthorBook")->name("remove");
+    Route::delete('/book/{book}/{author}/remove',"BookController@removeBookAuthor")->name("remove");
 });
 
 

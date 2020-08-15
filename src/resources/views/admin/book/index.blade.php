@@ -1,38 +1,56 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Node admin  <a href="/admin/book/create" class="btn btn-success"> + Create</a></div>
-                    <div class="panel-body">
-                        <table class="table">
-                            <thead>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-md-12 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading"><a href="{{ route('admin.book.create') }}" class="btn btn-success">Добавить книгу</a></div>
+                <br>
+                <br>
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Идентификатор</th>
+                            <th>Название</th>
+                            <th>Описание</th>
+                            <th>Цена</th>
+                            <th>Количество авторов</th>
+                            <th>Действие</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($books as $book)
                             <tr>
-                                <th>id</th>
-                                <th>Title</th>
-                                <th>Type</th>
-                                <th>Action</th>
+                                <td>{{ $book["id"] }}</td>
+                                <td>{{ $book["name"] }}</td>
+                                <td>{{ $book["description"] }}</td>
+                                <td>{{ $book["price"] }}</td>
+                                <td>
+                                    @if ($book->authors()->get()->count() > 0)
+                                        <a href="/admin/book/{{ $book["id"] }}/authors">{{ $book->authors()->get()->count() }}</a>
+                                    @else
+                                        {{$book->authors()->get()->count()}}
+                                    @endif
+                                </td>
+                                <td>
+                                    <div class="row">
+                                        <a href="{{ route('admin.book.edit', ["id" => $book["id"]]) }}" class="btn btn-success">Редактировать</a>
+                                        <form action="/admin/book/{{ $book["id"] }}" method="post" class="ml-2">
+                                            @method("delete")
+                                            @csrf
+                                            <button class="btn btn-danger">Удалить</button>
+                                        </form>
+                                    </div>
+                                </td>
                             </tr>
-                            </thead>
-                            <tbody>
-{{--                            @foreach($nodes as $node)--}}
-{{--                                <tr>--}}
-{{--                                    <td>{{ $node->id }}</td>--}}
-{{--                                    <td>{{ $node->title }}</td>--}}
-{{--                                    <td>{{ $node->type }}</td>--}}
-{{--                                    <td style="text-align:right;">--}}
-{{--                                        <a href="/node/{{ $node->id }}" class="btn btn-info">View</a>--}}
-{{--                                        <a href="/node/{{ $node->id }}/edit" class="btn btn-success">Edit</a>--}}
-{{--                                        <a href="/node/{{ $node->id }}/destroy" class="btn btn-danger">Dellete</a>--}}
-{{--                                    </td>--}}
-{{--                                </tr>--}}
-{{--                            @endforeach--}}
-                            </tbody>
-                        </table>
-                    </div>
+                        @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
+
     </div>
 @endsection

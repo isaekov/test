@@ -3,11 +3,9 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Редактировать автора</h2>
+                <h2>Редактировать книгу</h2>
             </div>
-{{--            <div class="pull-right">--}}
-{{--                <a class="btn btn-primary" href="{{ route('admin.book.index') }}">Назад</a>--}}
-{{--            </div>--}}
+
         </div>
     </div>
     <br>
@@ -22,31 +20,38 @@
         </div>
     @endif
 
-    <form action="{{ route('admin.author.update',  $author) }}" method="POST">
+    <form action="{{ route('admin.book.update',  $book) }}" method="POST">
         @csrf
         @method("PUT")
         <div class="row">
             <div class="col-xs-col-sm-3 col-md-3">
                 <div class="form-group">
-                    <strong>Имя:</strong>
-                    <input type="text" name="name" class="form-control" value="{{ $author->name }}" placeholder="Имя">
+                    <strong>Название:</strong>
+                    <input type="text" name="name" class="form-control" value="{{ $book->name }}" placeholder="Название">
                 </div>
             </div>
             <div class="col-xs-3 col-sm-3 col-md-3">
                 <div class="form-group">
-                    <strong>Фамилия:</strong>
-                    <input type="text" name="last_name" class="form-control" value="{{ $author->last_name }}" placeholder="Фамилия">
+                    <strong>Описание:</strong>
+                    <input type="text" name="description" class="form-control" value="{{ $book->description }}" placeholder="Описание">
+                </div>
+            </div>
+
+            <div class="col-xs-3 col-sm-3 col-md-3">
+                <div class="form-group">
+                    <strong>Цена:</strong>
+                    <input type="text" name="price" class="form-control" value="{{ $book->price }}" placeholder="Цена">
                 </div>
             </div>
             <div class="col-xs-3 col-sm-3 col-md-3">
                 <div class="form-group">
-                    <strong>Книги:</strong>
-                    <select  class="form-control" multiple name="books_id[]" id="">
-                        @foreach($books as $key => $book)
-                            @if (isset($author->books[$key]->name ))
+                    <strong>Авторы:</strong>
+                    <select  class="form-control" multiple name="authors_id[]">
+                        @foreach($authors as $key => $author)
+                            @if (isset($book->authors[$key]->name ))
                                 @continue
                             @endif
-                            <option  value="{{ $book->id }}" name="book">{{ $book->name }}</option>
+                            <option  value="{{ $author->id }}" name="book">{{ $author->name }} {{ $author->last_name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -54,15 +59,15 @@
             <div class="col-xs-2 col-sm-2 col-md-2 ">
                 <div class="form-group">
                     <strong>  &nbsp;</strong>
-                    <button type="submit" class="btn form-control btn-primary">Сохранить автора</button>
+                    <button type="submit" class="btn form-control btn-primary">Сохранить книгу</button>
                 </div>
             </div>
         </div>
     </form>
 
-    @if(!$author->books->isEmpty())
+    @if(!$book->authors->isEmpty())
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-12 col-md-offset-2">
             <div class="panel panel-default">
                 <h4 class="panel-heading"><strong>Список книг</strong></h4>
                 <div class="panel-body">
@@ -70,20 +75,18 @@
                         <thead>
                         <tr>
                             <th>Идентификатор</th>
-                            <th>Название</th>
-                            <th>Описание</th>
+                            <th>ФИО</th>
                             <th>Действие</th>
                         </tr>
                         </thead>
                         <tbody>
 
-                        @foreach($author->books as $book)
+                        @foreach($book->authors as $author)
                             <tr>
-                                <td>{{ $book["id"] }}</td>
-                                <td>{{ $book["name"] }}</td>
-                                <td>{{ $book["description"] }}</td>
+                                <td>{{ $author["id"] }}</td>
+                                <td>{{ $author["name"] }} {{ $author["last_name"] }}</td>
                                 <td style="text-align:right;">
-                                    <form  action="/admin/author/{{ $author["id"] }}/{{ $book["id"] }}/remove" method="POST">
+                                    <form  action="/admin/book/{{ $book["id"] }}/{{ $author["id"] }}/remove" method="POST">
                                         @method("DELETE")
                                         @csrf
                                         <button class="btn btn-danger">Удалить</button>

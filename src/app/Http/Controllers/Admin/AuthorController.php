@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Entity\Author;
 use App\Entity\Book;
+use App\Entity\BookAuthor;
 use App\Entity\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -13,7 +14,7 @@ class AuthorController extends Controller
 
     public function index()
     {
-        $authors =  Author::all();
+        $authors = Author::all();
         return view("admin.author.index", compact("authors"));
     }
 
@@ -24,10 +25,16 @@ class AuthorController extends Controller
         return view("admin.author.create", compact("books"));
     }
 
-    public function getAuthorBooks($id){
+    public function getAuthorBooks($id)
+    {
         $author = Author::find($id);
-        $author->books;
-        return view('admin.author.books')->with('author',$author);
+        return view('admin.author.books')->with('author', $author);
+    }
+
+    public function removeAuthorBook(Author $author, Book $book)
+    {
+        $author->books()->detach($book);
+        return redirect()->route('admin.author.edit', ["author" => $author->id]);
     }
 
     public function store(Request $request)
@@ -37,13 +44,9 @@ class AuthorController extends Controller
             'last_name' => 'required',
         ]);
         $author = Author::create($request->all());
-        foreach ($request->books_id as $book){
-            $author->books()->save(Book::find($book));
-        }
-
+        $author->books()->attach(Book::find($request->books_id));
         $author->books;
-        return redirect()->route('admin.author.index')
-            ->with('success','Product created successfully.');
+        return redirect()->route('admin.author.index');
     }
 
 
@@ -55,7 +58,8 @@ class AuthorController extends Controller
 
     public function edit(Author $author)
     {
-        return view("admin.author.edit", compact("author"));
+        $books = Book::all();
+        return view("admin.author.edit", compact("author", "books"));
     }
 
 
@@ -66,13 +70,14 @@ class AuthorController extends Controller
             "last_name" => 'required|string|max:255',
         ]);
         $author->update($data);
-        return redirect()->route("admin.author.index");
-
+        $author->books()->attach(Book::find($request->books_id));
+        return redirect()->route("admin.author.edit", ["author" => $author->id]);
     }
 
 
     public function destroy($id)
     {
-        //
+        Author::find($id)->delete();
+        return redirect()->route("admin.author.index");
     }
 }

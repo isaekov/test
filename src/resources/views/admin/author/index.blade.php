@@ -14,6 +14,7 @@
                             <tr>
                                 <th>Идентификатор</th>
                                 <th>ФИО</th>
+                                <th>Количество книг</th>
                                 <th>Действие</th>
                             </tr>
                             </thead>
@@ -22,10 +23,22 @@
                                 <tr>
                                     <td>{{ $author["id"] }}</td>
                                     <td>{{ $author["name"] }} {{ $author["last_name"] }}</td>
-                                    <td>{{ $author->books()->get()->count() }}</td>
-                                    <td style="text-align:right;">
+                                    <td>
+                                        @if ($author->books()->get()->count() > 0)
+                                            <a href="/admin/author/{{ $author["id"] }}/books">{{ $author->books()->get()->count() }}</a>
+                                        @else
+                                            {{$author->books()->get()->count()}}
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <div class="row">
                                         <a href="/admin/author/{{ $author["id"] }}/edit" class="btn btn-success">Редактировать</a>
-                                        <a href="/node/{{ $author["id"] }}/destroy" class="btn btn-danger">Удалить</a>
+                                        <form action="/admin/author/{{ $author["id"] }}" method="post" class="ml-2">
+                                            @method("delete")
+                                            @csrf
+                                            <button class="btn btn-danger">Удалить</button>
+                                        </form>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach
