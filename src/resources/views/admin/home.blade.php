@@ -17,7 +17,7 @@
                                 <a class="btn btn-primary" href="{{ route('admin.book.index') }}">Книги</a>
                             </div>
                             <div class="pull-right ml-3">
-                                <a class="btn btn-primary" href="{{ route('admin.book.index') }}">Книги</a>
+                                <a class="btn btn-primary" href="{{ route('admin.author.index') }}">Авторы</a>
                             </div>
                         </div>
                     </div>
