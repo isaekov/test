@@ -32,6 +32,7 @@ Route::group([
     Route::get("/", "HomeController@index")->name("home");
     Route::resource("book", "BookController");
     Route::resource("author", "AuthorController");
+//    Route::get('/{id}/books',"AuthorController@getAuthorBooks");
 });
 
 

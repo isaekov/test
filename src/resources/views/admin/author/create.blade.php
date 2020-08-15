@@ -37,6 +37,17 @@
                     <input type="text" name="last_name" class="form-control" placeholder="Фамилия">
                 </div>
             </div>
+            <div class="col-xs-3 col-sm-3 col-md-3">
+                <div class="form-group">
+                    <strong>Книги:</strong>
+                    <select  class="form-control" multiple name="books_id[]" id="">
+                    @foreach($books as $book)
+                            <option value="{{ $book->id }}" name="book">{{ $book->name }}</option>
+                    @endforeach
+                    </select>
+                </div>
+            </div>
+
             <div class="col-xs-2 col-sm-2 col-md-2 ">
                 <div class="form-group">
                     <strong>  &nbsp;</strong>

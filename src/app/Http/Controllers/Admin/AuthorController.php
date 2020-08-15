@@ -13,30 +13,37 @@ class AuthorController extends Controller
 
     public function index()
     {
-        $authors =  Author::all()->toArray();
-
+        $authors =  Author::all();
         return view("admin.author.index", compact("authors"));
     }
 
 
     public function create()
     {
-        return view("admin.author.create");
+        $books = Book::all();
+        return view("admin.author.create", compact("books"));
     }
 
+    public function getAuthorBooks($id){
+        $author = Author::find($id);
+        $author->books;
+        return view('admin.author.books')->with('author',$author);
+    }
 
     public function store(Request $request)
     {
-
         $request->validate([
             'name' => 'required',
             'last_name' => 'required',
         ]);
+        $author = Author::create($request->all());
+        foreach ($request->books_id as $book){
+            $author->books()->save(Book::find($book));
+        }
 
-        Author::create($request->all());
-
-//        return redirect()->route('admin.author.index')
-//            ->with('success','Product created successfully.');
+        $author->books;
+        return redirect()->route('admin.author.index')
+            ->with('success','Product created successfully.');
     }
 
 

@@ -22,6 +22,7 @@
                                 <tr>
                                     <td>{{ $author["id"] }}</td>
                                     <td>{{ $author["name"] }} {{ $author["last_name"] }}</td>
+                                    <td>{{ $author->books()->get()->count() }}</td>
                                     <td style="text-align:right;">
                                         <a href="/admin/author/{{ $author["id"] }}/edit" class="btn btn-success">Редактировать</a>
                                         <a href="/node/{{ $author["id"] }}/destroy" class="btn btn-danger">Удалить</a>
