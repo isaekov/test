@@ -34,6 +34,8 @@ services:
       SERVICE_NAME: mysql
     networks:
       - laravel
+    volumes:
+      - ./db:/var/lib/mysql
 
   php:
     build:

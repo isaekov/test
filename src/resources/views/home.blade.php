@@ -13,8 +13,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    You
+                    Guest
                 </div>
             </div>
         </div>
