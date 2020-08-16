@@ -9,10 +9,10 @@ class AuthorTable extends Seeder
     public function run()
     {
         $data = [
-            ['name' => 'Артур', "last_name" => "Конандоил"],
-            ['name' => 'Вальтер', "last_name" => "Скотт"],
-            ['name' => 'Стенли', "last_name" => "Милгрэм"],
-            ['name' => 'Ильдар1', "last_name" => "Исаеков"],
+            ['id' => 1, 'name' => 'Артур', "last_name" => "Конан Дойль"],
+            ['id' => 2, 'name' => 'Вальтер', "last_name" => "Скотт"],
+            ['id' => 3, 'name' => 'Стенли', "last_name" => "Милгрэм"],
+            ['id' => 9, 'name' => 'Уильям', "last_name" => "Шекспир"],
         ];
         DB::table('authors')
             ->insert($data);

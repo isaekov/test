@@ -5,9 +5,9 @@
             <div class="pull-left">
                 <h2>Редактировать автора</h2>
             </div>
-{{--            <div class="pull-right">--}}
-{{--                <a class="btn btn-primary" href="{{ route('admin.book.index') }}">Назад</a>--}}
-{{--            </div>--}}
+            <div class="pull-right">
+                <a class="btn btn-primary" href="{{ route('admin.author.index') }}">Назад</a>
+            </div>
         </div>
     </div>
     <br>

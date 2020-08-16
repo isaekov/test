@@ -40,7 +40,7 @@
                                 </td>
                                 <td>
                                     <div class="row">
-                                        <a href="{{ route('admin.book.edit', ["id" => $book["id"]]) }}" class="btn btn-success">Редактировать</a>
+                                        <a href="{{ route('admin.book.edit', ["book" => $book["id"]]) }}" class="btn btn-success">Редактировать</a>
                                         <form action="/admin/book/{{ $book["id"] }}" method="post" class="ml-2">
                                             @method("delete")
                                             @csrf
@@ -55,6 +55,5 @@
                 </div>
             </div>
         </div>
-
     </div>
 @endsection

@@ -74,8 +74,11 @@ class BookController extends Controller
     }
 
 
-    public function destroy($id)
+    public function destroy(Book $book)
     {
-        //
+
+        $book->authors()->detach();
+        $book->delete();
+        return redirect()->route("admin.book.index");
     }
 }

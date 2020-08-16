@@ -13,7 +13,7 @@ class CreateBooksAuthorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('books_authors', function (Blueprint $table) {
+        Schema::create('book_authors', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer("book_id");
             $table->integer("author_id");
@@ -28,6 +28,6 @@ class CreateBooksAuthorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('books_authors');
+        Schema::dropIfExists('book_authors');
     }
 }
