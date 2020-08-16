@@ -3,7 +3,7 @@
 В консоли <strong>make start</strong>
 
 (данные в базе заполняются через <code>seed</code>)
-app_url  http://localhost:8080
+app_url  (http://localhost:8080)
 логин/пасс hello@world.ru/12345678
 api авторизации
 
