@@ -7,8 +7,8 @@ Route::get('/', 'HomeController@index')->name('home');
 Auth::routes();
 Route::get('/books', 'Guest\ShowBooksController')->name('books');
 Route::get('/authors', 'Guest\ShowAuthorsController')->name('authors');
-//Route::get('/register',  'Auth\RegisterController@form')->name('form');
-//Route::post('/register', 'Auth\RegisterController@register')->name('register');
+Route::get('/register',  'Auth\RegisterController@form')->name('form');
+Route::post('/register', 'Auth\RegisterController@register')->name('register');
 Route::group([
     "prefix" => "admin",
     "as" => "admin.",
